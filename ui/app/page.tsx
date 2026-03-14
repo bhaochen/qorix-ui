@@ -20,7 +20,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Toggle } from "@/components/ui/toggle"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { ToggleWithInput } from "@/components/ui/toggle-with-input"
 import { RunConfigPanel } from "@/components/run-config-panel"
 import { RunConfigCompareDialog } from "@/components/run-config-compare-dialog"
@@ -356,7 +355,6 @@ export default function HomePage() {
   // Plots & config state
   const [plotsOpen, setPlotsOpen] = useState(true)
   const [configsOpen, setConfigsOpen] = useState(true)
-  const [configViewMode, setConfigViewMode] = useState<"custom" | "all">("custom")
   const [collapseAllSignal, setCollapseAllSignal] = useState(0)
   const [expandAllSignal, setExpandAllSignal] = useState(0)
   const [showEma, setShowEma] = useAtom(overviewShowEmaAtom)
@@ -468,6 +466,7 @@ export default function HomePage() {
     [setOverviewPlots],
   )
 
+  const availableSampleTags = summaryData?.available_sample_tags ?? {}
   const chartProps = useMemo(
     () => ({
       runs: plotRuns,
@@ -477,8 +476,9 @@ export default function HomePage() {
       hoveredRunId,
       xAxisMode: "step" as const,
       scrollRoot: null,
+      availableSampleTags,
     }),
-    [plotRuns, showEma, emaSpan, hoveredRunId],
+    [plotRuns, showEma, emaSpan, hoveredRunId, availableSampleTags],
   )
 
   // Find current run info for created_at and state
@@ -785,24 +785,6 @@ export default function HomePage() {
                         <span className="text-sm font-semibold">
                           Run Configuration
                         </span>
-                        {summaryData.custom_config && (
-                          <ToggleGroup
-                            type="single"
-                            value={configViewMode}
-                            onValueChange={(value) => {
-                              if (value) setConfigViewMode(value as "custom" | "all")
-                            }}
-                            variant="outline"
-                            size="sm"
-                          >
-                            <ToggleGroupItem value="custom" className="text-xs px-3 h-7">
-                              Custom
-                            </ToggleGroupItem>
-                            <ToggleGroupItem value="all" className="text-xs px-3 h-7">
-                              All
-                            </ToggleGroupItem>
-                          </ToggleGroup>
-                        )}
                         <RunConfigCompareDialog
                           currentRunId={selectedRunPath}
                           currentConfig={summaryData.config}
@@ -845,11 +827,7 @@ export default function HomePage() {
                         </Button>
                       </div>
                       <RunConfigPanel
-                        config={
-                          configViewMode === "custom" && summaryData.custom_config
-                            ? summaryData.custom_config
-                            : summaryData.config
-                        }
+                        config={summaryData.config}
                         collapseAllSignal={collapseAllSignal}
                         expandAllSignal={expandAllSignal}
                       />

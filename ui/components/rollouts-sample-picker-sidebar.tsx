@@ -40,7 +40,6 @@ import {
   normalizeEnvItems,
   type EnvRewardRanges,
   type EnvMetricRanges,
-  type MetricRange,
 } from "@/components/rollouts-view"
 import type { Prompt, Rollout, SampleData, RolloutMetric } from "@/lib/types"
 
@@ -87,12 +86,10 @@ function rewardRangeColor(
   value: number,
   min: number | null | undefined,
   max: number | null | undefined,
-  invert?: boolean,
 ): string | undefined {
   if (min == null || max == null) return undefined
   if (min >= max) return undefined
-  let t = Math.max(0, Math.min(1, (value - min) / (max - min)))
-  if (invert) t = 1 - t
+  const t = Math.max(0, Math.min(1, (value - min) / (max - min)))
   const hue = t * 120
   return `hsl(${hue.toFixed(0)} 80% 38%)`
 }
@@ -248,13 +245,9 @@ export function RolloutsSamplePickerSidebar({
   )
   const envMetricRanges = useMemo(() => {
     const configRanges = extractEnvMetricRanges(envDetailsValue)
-    const summaryRanges = extractEnvMetricRanges(summaryData?.summary?.env_details)
     const dataRanges = parseDataMetricRanges(summaryData?.data_metric_ranges)
-    return mergeEnvMetricRanges(
-      mergeEnvMetricRanges(configRanges, summaryRanges),
-      dataRanges,
-    )
-  }, [envDetailsValue, summaryData?.summary?.env_details, summaryData?.data_metric_ranges])
+    return mergeEnvMetricRanges(configRanges, dataRanges)
+  }, [envDetailsValue, summaryData?.data_metric_ranges])
   // Check if any environment is multi-turn to decide which gen length metrics to show.
   // Falls back to env_details in the wandb run summary when config.environments lacks is_multi_turn.
   const hasMultiTurn = useMemo(() => {
@@ -1105,7 +1098,7 @@ function lookupMetricRange(
   envMetricRanges: EnvMetricRanges | undefined,
   metricEnv: string | null,
   metricKey: string,
-): MetricRange | undefined {
+): { min: number; max: number } | undefined {
   if (!envMetricRanges) return undefined
   if (metricEnv) {
     const exact = envMetricRanges.get(metricEnv)?.get(metricKey)
@@ -1227,7 +1220,6 @@ function getMetricDisplay(
         metric.value,
         range?.min ?? null,
         range?.max ?? null,
-        range?.invert,
       )
       return {
         value: metric.value,
