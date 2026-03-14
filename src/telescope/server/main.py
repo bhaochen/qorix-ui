@@ -2846,6 +2846,7 @@ def get_run_summary(run_path: str):
         return {
             "summary": {},
             "config": {},
+            "custom_config": None,
             "trainer_commit": trainer_commit,
             "schema_version": schema_version,
             "last_rollout_step": -1,
@@ -2878,7 +2879,8 @@ def get_run_summary(run_path: str):
     
     summary = json.loads(result[0]) if result[0] else {}
     config = json.loads(result[4]) if result[4] else {}
-    
+    custom_config = config.pop("_custom_config", None)
+
     # Batch all COUNT queries into a single query using scalar subqueries
     # (replaces 12 separate COUNT queries with 1 round-trip)
     rp = run_path  # shorthand for params
@@ -3083,6 +3085,7 @@ def get_run_summary(run_path: str):
     return {
         "summary": summary,
         "config": config,
+        "custom_config": custom_config,
         "trainer_commit": trainer_commit,
         "schema_version": schema_version,
         "last_rollout_step": result[2] if result[2] is not None else -1,
