@@ -1,4 +1,4 @@
-// Formatting utilities for telescope visualization
+// Formatting utilities for qorix visualization
 
 /**
  * Format an absolute unix timestamp for chart axes, adapting precision to range.

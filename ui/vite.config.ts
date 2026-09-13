@@ -14,7 +14,7 @@ export default defineConfig({
     port: 3000,
   },
   build: {
-    outDir: path.resolve(__dirname, "../src/telescope/static"),
+    outDir: path.resolve(__dirname, "../src/qorix_ui/static"),
     emptyOutDir: true,
   },
 })

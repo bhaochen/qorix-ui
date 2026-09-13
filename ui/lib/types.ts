@@ -1,4 +1,4 @@
-// Shared TypeScript types for the telescope visualization
+// Shared TypeScript types for the qorix visualization
 
 // ============================================================================
 // Event Types

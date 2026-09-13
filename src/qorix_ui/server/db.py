@@ -14,15 +14,15 @@ from pathlib import Path
 # Setup logging
 log = logging.getLogger(__name__)
 
-_DEFAULT_DATA_DIR = Path.home() / ".telescope"
+_DEFAULT_DATA_DIR = Path.home() / ".qorix"
 
 
 def _get_data_dir() -> Path:
-    return Path(os.environ.get("TELESCOPE_DATA_DIR", str(_DEFAULT_DATA_DIR)))
+    return Path(os.environ.get("QORIX_DATA_DIR", str(_DEFAULT_DATA_DIR)))
 
 
 def get_db_path() -> Path:
-    return _get_data_dir() / "telescope.duckdb"
+    return _get_data_dir() / "qorix.duckdb"
 
 
 DB_PATH = get_db_path()
@@ -3218,7 +3218,7 @@ def set_wandb_key_source(source: str):
 
 
 def set_wandb_api_key(*, api_key: str):
-    """Store a custom W&B API key in ~/.telescope/wandb_key."""
+    """Store a custom W&B API key in ~/.qorix/wandb_key."""
     f = _api_key_file()
     f.parent.mkdir(parents=True, exist_ok=True)
     f.write_text(api_key)

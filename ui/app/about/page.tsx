@@ -22,7 +22,7 @@ export default function AboutPage() {
     <div className="h-full flex items-center justify-center overflow-auto pb-40">
       <div className="max-w-2xl px-6 py-12 text-center">
         <div className="flex flex-col items-center justify-center mb-8 gap-2">
-          <img src={darkMode ? "/logo-full-dark.svg" : "/logo-full.svg"} alt="Telescope" className="h-12" />
+          <img src={darkMode ? "/logo-full-dark.svg" : "/logo-full.svg"} alt="Qorix" className="h-12" />
           {versionData?.current && (
             <span className="text-xs text-muted-foreground font-mono">
               v{versionData.current}
@@ -32,7 +32,7 @@ export default function AboutPage() {
 
         <div className="space-y-4 text-base text-foreground/60 leading-relaxed text-justify">
           <p>
-            Telescope is a framework to post-train LLMs with reinforcement
+            Qorix is a framework to post-train LLMs with reinforcement
             learning for reasoning and agents.
           </p>
           <p>
@@ -46,18 +46,18 @@ export default function AboutPage() {
             events, and more.
           </p>
           <p>
-            Telescope is built with a modern stack and focused on
+            Qorix is built with a modern stack and focused on
             infrastructure, observability, scalability, and reliability.
           </p>
           <p>
             You can find the documentation at{" "}
             <a
-              href="https://docs.telescope.training"
+              href="https://docs.qorix.training"
               target="_blank"
               rel="noopener noreferrer"
               className="underline underline-offset-2 hover:text-foreground transition-colors"
             >
-              docs.telescope.training
+              docs.qorix.training
             </a>
             .
           </p>
@@ -65,7 +65,7 @@ export default function AboutPage() {
 
         <div className="mt-10 flex items-center justify-center gap-6 text-xs text-muted-foreground">
           <a
-            href="https://github.com/eduardoslonski/telescope"
+            href="https://github.com/eduardoslonski/qorix"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"
@@ -74,7 +74,7 @@ export default function AboutPage() {
           </a>
           <span className="text-border">|</span>
           <a
-            href="https://github.com/eduardoslonski/telescope-ui"
+            href="https://github.com/eduardoslonski/qorix-ui"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground transition-colors"

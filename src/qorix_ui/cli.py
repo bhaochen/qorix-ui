@@ -1,4 +1,4 @@
-"""Telescope CLI — start the visualization server."""
+"""Qorix CLI — start the visualization server."""
 
 from __future__ import annotations
 
@@ -53,8 +53,8 @@ def main() -> None:
     sys.stderr.flush()
 
     parser = argparse.ArgumentParser(
-        prog="telescope",
-        description="Telescope \u2014 LLM training visualization",
+        prog="qorix",
+        description="Qorix \u2014 LLM training visualization",
     )
     parser.add_argument(
         "--port",
@@ -87,14 +87,14 @@ def main() -> None:
     # Heavy imports happen here
     import uvicorn
 
-    from telescope import __version__
-    from telescope.server.db import _get_data_dir
+    from qorix_ui import __version__
+    from qorix_ui.server.db import _get_data_dir
 
     data_dir = _get_data_dir()
     data_dir.mkdir(parents=True, exist_ok=True)
 
     if not args.dev:
-        from telescope.server.main import mount_static_ui
+        from qorix_ui.server.main import mount_static_ui
         mount_static_ui()
 
     url = f"http://{args.host}:{args.port}"
@@ -130,7 +130,7 @@ def main() -> None:
 
     try:
         uvicorn.run(
-            "telescope.server.main:app",
+            "qorix_ui.server.main:app",
             host=args.host,
             port=args.port,
             reload=args.dev,

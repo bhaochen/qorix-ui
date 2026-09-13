@@ -290,12 +290,12 @@ def stop_all_syncs_endpoint():
 
 @app.get("/version-check")
 async def version_check():
-    from telescope import __version__
+    from qorix_ui import __version__
 
     current = __version__
     try:
         async with httpx.AsyncClient(timeout=5) as client:
-            resp = await client.get("https://pypi.org/pypi/telescope-ui/json")
+            resp = await client.get("https://pypi.org/pypi/qorix-ui/json")
             resp.raise_for_status()
             latest = resp.json()["info"]["version"]
         update_available = Version(latest) > Version(current)
@@ -314,7 +314,7 @@ async def update_package():
             [
                 sys.executable, "-m", "pip", "install", "-U",
                 "--no-input", "--disable-pip-version-check",
-                "telescope-ui",
+                "qorix-ui",
             ],
             capture_output=True,
             text=True,
@@ -328,7 +328,7 @@ async def update_package():
         if "Permission" in stderr or "permission" in stderr:
             return {
                 "success": False,
-                "error": "Permission denied. Run manually:\n  pip install -U telescope-ui",
+                "error": "Permission denied. Run manually:\n  pip install -U qorix-ui",
             }
         return {"success": False, "error": stderr or "Update failed."}
 
@@ -624,7 +624,7 @@ async def wandb_config(req: WandbConfigRequest):
             raise HTTPException(status_code=400, detail="Missing W&B API key")
         set_wandb_api_key(api_key=api_key)
 
-    asyncio.create_task(configure_wandb_and_sync(api_key, tag="telescope"))
+    asyncio.create_task(configure_wandb_and_sync(api_key, tag="qorix"))
 
     return {
         "ok": True,

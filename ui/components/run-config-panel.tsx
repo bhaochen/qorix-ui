@@ -125,7 +125,7 @@ function categorizeConfigs(
   config: Record<string, unknown>
 ): ConfigCategory[] {
   // Define category matchers in desired display order
-  // (matches sections in the default telescope config file)
+  // (matches sections in the default qorix config file)
   // The `order` arrays define the display order of keys within each category;
   // keys not listed are appended at the end alphabetically.
   const categoryDefinitions: Array<{

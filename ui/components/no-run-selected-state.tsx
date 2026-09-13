@@ -87,7 +87,7 @@ export function NoRunSelectedState({ description }: NoRunSelectedStateProps) {
             <>
               <CardTitle>Add a project</CardTitle>
               <CardDescription>
-                Add a W&amp;B project to start discovering telescope-tagged runs.
+                Add a W&amp;B project to start discovering qorix-tagged runs.
               </CardDescription>
               <Button
                 className="mt-4"

@@ -1,5 +1,5 @@
 [project]
-name = "telescope-ui"
+name = "qorix-ui"
 version = "0.1.44"
 description = "Real-time visualization dashboard for LLM training runs"
 readme = "README.md"
@@ -35,17 +35,17 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/eduardoslonski/telescope-ui"
+Repository = "https://github.com/eduardoslonski/qorix-ui"
 
 [project.scripts]
-telescope = "telescope.cli:main"
+qorix = "qorix_ui.cli:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
-artifacts = ["src/telescope/static/"]
+artifacts = ["src/qorix_ui/static/"]
 exclude = [
     "ui/",
     ".claude/",
@@ -53,4 +53,4 @@ exclude = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/telescope"]
+packages = ["src/qorix_ui"]

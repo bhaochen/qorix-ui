@@ -104,7 +104,7 @@ log = logging.getLogger(__name__)
 
 POLL_SECONDS = 5
 TAGGED_RUNS_POLL_SECONDS = 5
-TAGGED_RUNS_TAG = "telescope"
+TAGGED_RUNS_TAG = "qorix"
 INGEST_STATE_RECONCILE_SECONDS = 60
 # When there are no known projects yet (fresh DB), periodically re-run full
 # discovery so new tagged runs can still be found later.
@@ -113,7 +113,7 @@ EMPTY_KNOWN_PROJECTS_DISCOVERY_SECONDS = 60
 # Schema version required for runs to be ingested.
 # Runs must have a schema_version tag that exactly matches this value.
 # Runs without a schema_version tag or with a different value are skipped
-# during initial discovery and polling (similar to telescope-ignore).
+# during initial discovery and polling (similar to qorix-ignore).
 SCHEMA_VERSION = "0.3.0"
 
 # In-memory store for inflight generation snapshots (per run).
@@ -216,7 +216,7 @@ _cancelled_syncs: set[str] = set()
 _sync_total_enqueued: int = 0
 _sync_total_completed: int = 0
 
-# Projects known to contain telescope-tagged runs (populated from DB on startup).
+# Projects known to contain qorix-tagged runs (populated from DB on startup).
 _known_projects: set[str] = set()
 
 # Compaction pause — when True, all background loops skip their work.
@@ -3469,7 +3469,7 @@ def _discover_tagged_runs_for_project(
         tags = list(getattr(run, "tags", []) or [])
         if tag not in tags:
             continue
-        if "telescope-ignore" in tags:
+        if "qorix-ignore" in tags:
             continue
         if _schema_version_mismatch(tags) and not _schema_version_newer(tags):
             continue
@@ -3756,7 +3756,7 @@ def _poll_project_for_new_runs(
                 run_tags = node.get("tags") or []
                 if tag not in run_tags:
                     continue
-                if "telescope-ignore" in run_tags:
+                if "qorix-ignore" in run_tags:
                     continue
                 if _schema_version_mismatch(run_tags) and not _schema_version_newer(run_tags):
                     continue
@@ -4038,7 +4038,7 @@ async def _sync_worker(worker_id: int):
         log.info(f"[SYNC] Worker #{worker_id} finished (queue empty)")
 
 
-async def configure_wandb_and_sync(api_key: str, tag: str = "telescope"):
+async def configure_wandb_and_sync(api_key: str, tag: str = "qorix"):
     """Store W&B key and poll known projects if any exist.
 
     No full entity discovery — runs are only discovered for explicitly added
@@ -4054,8 +4054,8 @@ async def configure_wandb_and_sync(api_key: str, tag: str = "telescope"):
             enqueue_sync(new_run_paths, api_key, force_sync=True)
 
 
-async def discover_and_sync_project(api_key: str, project_path: str, tag: str = "telescope"):
-    """Discover telescope-tagged runs in a single project and enqueue them for sync.
+async def discover_and_sync_project(api_key: str, project_path: str, tag: str = "qorix"):
+    """Discover qorix-tagged runs in a single project and enqueue them for sync.
 
     Called when a user adds a project via /add-project.  Sets discovery status
     so the UI can show a brief "Fetching runs" indicator while the search is

@@ -848,7 +848,7 @@ export function AppSidebar() {
             to="/about"
             className="flex items-center h-7 hover:opacity-80 transition-opacity"
           >
-            <img src={darkMode ? "/logo-full-dark.svg" : "/logo-full.svg"} alt="Telescope" className="h-5" />
+            <img src={darkMode ? "/logo-full-dark.svg" : "/logo-full.svg"} alt="Qorix" className="h-5" />
           </Link>
           <div className="flex items-center gap-1">
             {updateAvailable && latestVersion && (
@@ -1096,7 +1096,7 @@ export function AppSidebar() {
                     {discovery?.runs_found ?? 0} found
                   </span>
                   <span className="text-[10px] text-muted-foreground/70 leading-tight">
-                    Looking for telescope-tagged runs…
+                    Looking for qorix-tagged runs…
                   </span>
                 </div>
               </div>
@@ -1313,7 +1313,7 @@ export function AppSidebar() {
                                 </button>
                               </TooltipTrigger>
                               <TooltipContent side="right">
-                                <p className="text-xs">Update telescope-ui to sync this run</p>
+                                <p className="text-xs">Update qorix-ui to sync this run</p>
                               </TooltipContent>
                             </Tooltip>
                           ) : (
@@ -1471,12 +1471,12 @@ export function AppSidebar() {
                 <>
                   Use the API key saved by{" "}
                   <span className="font-sans">wandb login</span> to fetch all
-                  runs tagged <span className="font-sans">telescope</span>.
+                  runs tagged <span className="font-sans">qorix</span>.
                 </>
               ) : (
                 <>
                   Paste your W&B API key to fetch all runs tagged{" "}
-                  <span className="font-sans">telescope</span>.
+                  <span className="font-sans">qorix</span>.
                 </>
               )}
             </DialogDescription>
@@ -1737,7 +1737,7 @@ export function AppSidebar() {
           <DialogHeader className="pb-3">
             <DialogTitle>Known Projects</DialogTitle>
             <DialogDescription>
-              Projects polled for new telescope-tagged runs. Add an
+              Projects polled for new qorix-tagged runs. Add an
               entity/project pair to start discovering runs from it.
             </DialogDescription>
           </DialogHeader>
@@ -2009,7 +2009,7 @@ export function AppSidebar() {
           <DialogHeader>
             <DialogTitle>Update Available</DialogTitle>
             <DialogDescription>
-              A new version of telescope-ui is available.
+              A new version of qorix-ui is available.
             </DialogDescription>
           </DialogHeader>
 
@@ -2042,7 +2042,7 @@ export function AppSidebar() {
           {updateMutation.isPending && (
             <div className="flex items-center gap-3 py-4">
               <Spinner className="h-4 w-4" />
-              <span className="text-sm">Updating telescope-ui...</span>
+              <span className="text-sm">Updating qorix-ui...</span>
             </div>
           )}
 

@@ -1,4 +1,4 @@
-// Shared constants for telescope visualization
+// Shared constants for qorix visualization
 
 export const API_BASE = import.meta.env.VITE_API_BASE ?? ""
 export const POLL_INTERVAL = 5000
