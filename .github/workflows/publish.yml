@@ -46,7 +46,17 @@ jobs:
       - name: Build package
         run: python -m build
 
+      - name: Check if version exists on PyPI
+        id: check_version
+        run: |
+          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          # 检查这个版本是否已经存在于 PyPI（忽略错误，返回1表示不存在）
+          pip index versions qorix-ui 2>/dev/null | grep -q "$VERSION" && echo "exists=true" >> $GITHUB_OUTPUT || echo "exists=false" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION, exists on PyPI: $(echo ${{ steps.check_version.outputs.exists }})"
+
       - name: Publish to PyPI
+        if: steps.check_version.outputs.exists == 'false'
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
